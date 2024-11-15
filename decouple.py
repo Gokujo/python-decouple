@@ -98,6 +98,12 @@ class Config(object):
         elif cast is bool:
             cast = self._cast_boolean
 
+        if value is None or value == '':
+            if not isinstance(default, Undefined):
+                value = default
+            else:
+                cast = self._cast_do_nothing
+
         return cast(value)
 
     def __call__(self, *args, **kwargs):
